@@ -4,17 +4,27 @@ class App extends Singleton
 {
     public $config = null;
     public $uri = null;
+    public $post = null;
+    public $get = null;
+    public $request = null;
+    public $session = null;
 
     public function __construct()
     {
+
         $this->initSystemHandlers();
         $default_config = include PIXODO . 'config.php';
         $custom_config = include APP . 'config.php';
         $this->config = new Registry(array_merge($default_config, $custom_config));
 
+        session_start([
+            'cookie_lifetime' => $this->config->cookietime,
+        ]);
+
         include PIXODO . 'classes/adapter/db.php';
         $this->db = new db();
         $this->db->connect($this->config->db);
+
     }
 
     public function start()

@@ -7,10 +7,18 @@ class User extends Model
 
     function getAuth()
     {
-        if ($_SESSION['auth']) {
+        if (isset($_SESSION['auth'])) {
             return true;
         }
-        $_SESSION['auth'] = ($this->login == 'ivan' and $this->password == 'parol') ? true : false;
+        $_SESSION['auth'] = ($this->email == 'admin@admin.com' && $this->password == 'admin') ? true : false;
+
+        if($_SESSION['auth'] == true){
+            $_SESSION['user'] = array(
+                "name" => "Pupkin",
+                "email" => $this->email,
+                "password" => $this->password
+            );
+        }
         return $_SESSION['auth'];
     }
 
@@ -28,13 +36,3 @@ class User extends Model
         }
     }*/
 }
-
-$user = new User();
-$user->__attributes = array(
-    'id' => 33,
-    'login' => 'Иван',
-    'sql' => 'trancate users;',
-    'email' => 'sko@ya.ru'
-);
-echo $user->id;//33
-echo $user->email;//sko@ya.ru

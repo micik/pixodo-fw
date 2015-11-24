@@ -1,10 +1,15 @@
 <?php
+
 class IndexController extends Controller {
 
     function actionIndex(){
-        $model = new User();
-        var_dump(App::gi());
-        $this->render('index',array('model'=>$model));
+        /*$model = new User();*/
+        if(!empty($_SESSION['user'])){
+            $name = $_SESSION['user']["name"];
+        }else{
+            $name = "Guest";
+        }
+        $this->render('index',array('name'=>$name));
     }
 
 }

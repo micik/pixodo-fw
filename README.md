@@ -17,7 +17,9 @@ Pixodo
 index.php
 ```
 
+```
 App::gi()->config
 App::gi()->uri->controller - название контроллера
 App::gi()->uri->action - название метода контроллера
-App::gi()->uri->id - некий идентификатор
+App::gi()->uri->id - идентификатор
+```
