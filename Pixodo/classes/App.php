@@ -17,7 +17,7 @@ class App extends Singleton
         $this->db->connect($this->config->db);
     }
 
-    function start()
+    public function start()
     {
         $this->uri = new Registry(Router::gi()->parse($_SERVER['REQUEST_URI']));
         $controller = app::gi($this->uri->controller . 'Controller');
@@ -35,6 +35,10 @@ class App extends Singleton
             }
         }
         $controller->renderLayout($content);
+    }
+
+    public function console(){
+
     }
 
     protected function initSystemHandlers()

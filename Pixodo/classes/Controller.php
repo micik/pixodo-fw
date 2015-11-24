@@ -60,7 +60,7 @@ class Controller extends Singleton
     }
 
     /**
-     * render - ìåòîä ðåíäåðèò êîíå÷íóþ ñòðàíèöó, êîòîðàÿ áóäåò âûäàíà â áðàóçåð
+     * render -
      */
     public function renderLayout($content)
     {
