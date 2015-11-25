@@ -1,8 +1,10 @@
 <?php
 return array(
     'host' => 'localhost',
-    'user' => 'root',
+    'username' => 'root',
     'password' => 'root',
-    'dbname' => 'pixodo-fw',
-    'pref' => 'px_' // префикс для всех таблиц фреймворка
+    'db' => 'pixodo-fw',
+    'port' => 3306,
+    'prefix' => 'px_',
+    'charset' => 'utf8'
 );

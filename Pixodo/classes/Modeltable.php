@@ -13,31 +13,28 @@ abstract class Modeltable extends Model
 
     function save()
     {
-        $modelname = get_called_class();
+        $modelName = get_called_class();
         if ($this->beforeSave()) {
             if (!$this->__get(self::$primary)) {
-                $res = App::gi()->db->insert($modelname::$table, $this->_data);
-                $this->__set($modelname::$primary, App::gi()->db->id());
+                var_dump((array) $this->_data);
+                $res = App::gi()->db->insert($modelName::$table, (array) $this->_data);
+                $this->__set($modelName::$primary, $res);
                 return $res;
             } else {
-                return App::gi()->db->update($modelname::$table, $this->_data, $modelname::$primary . '=' . $this->__get(self::$primary));
+                App::gi()->db->where($modelName::$primary, $this->__get(self::$primary));
+                App::gi()->db->update($modelName::$table, (array) $this->_data);
+                return App::gi()->db->count;
             }
         }
     }
 
-    static function getQuery()
-    {
-        $modelname = get_called_class();
-        return 'select * from ' . $modelname::$table;
-    }
-
     static function models()
     {
-        $items = App::gi()->db->query(self::getQuery())->rows();
+        $modelName = get_called_class();
+        $items = App::gi()->db->get($modelName::$table);
         $results = array();
-        $modelname = get_called_class();
         foreach ($items as $item) {
-            $model = new $modelname();
+            $model = new $modelName();
             $model->__attributes = $item;
             $results[] = $model;
         }
@@ -46,9 +43,10 @@ abstract class Modeltable extends Model
 
     static function model($id)
     {
-        $modelname = get_called_class();
-        $item = App::gi()->db->query('select * from ' . $modelname::$table . ' where ' . $modelname::$primary . '=' . App::gi()->db->_($id))->row();
-        $model = new $modelname();
+        $modelName = get_called_class();
+        App::gi()->db->where($modelName::$primary, $id);
+        $item = App::gi()->db->getOne($modelName::$table);
+        $model = new $modelName();
         $model->__attributes = $item;
         return $model;
     }

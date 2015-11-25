@@ -4,10 +4,6 @@ class App extends Singleton
 {
     public $config = null;
     public $uri = null;
-    public $post = null;
-    public $get = null;
-    public $request = null;
-    public $session = null;
 
     public function __construct()
     {
@@ -21,9 +17,11 @@ class App extends Singleton
             'cookie_lifetime' => $this->config->cookietime,
         ]);
 
-        include PIXODO . 'classes/adapter/db.php';
+        require_once (PIXODO.'classes/adapter/MySQLi/MysqliDb.php');
+        $this->db = new MysqliDb ($this->config->db);
+        /*include PIXODO . 'classes/adapter/db.php';
         $this->db = new db();
-        $this->db->connect($this->config->db);
+        $this->db->connect($this->config->db);*/
 
     }
 
