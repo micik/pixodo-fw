@@ -1,12 +1,15 @@
 <?php
-class UserController extends Controller{
 
-    function actionIndex(){
+class UserController extends Controller
+{
+    public function actionIndex()
+    {
         $model = new User();
-        $this->render('index',array('model'=>$model));
+        $this->render('index', ['model' => $model]);
     }
 
-    function actionLogin() {
+    public function actionLogin()
+    {
         $user = new User();
         if (!empty($_POST['email'])) {
             $user->login = $_POST['email'];
@@ -15,9 +18,9 @@ class UserController extends Controller{
                 header('Location:/');
                 exit();
             } else {
-                var_dump("error login");
+                var_dump('error login');
             }
         }
-        $this->render('login',array('model'=>$user));
+        $this->render('login', ['model' => $user]);
     }
 }

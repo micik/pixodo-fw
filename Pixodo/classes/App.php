@@ -7,30 +7,28 @@ class App extends Singleton
 
     public function __construct()
     {
-
         $this->initSystemHandlers();
-        $default_config = include PIXODO . 'config.php';
-        $custom_config = include APP . 'config.php';
+        $default_config = include PIXODO.'config.php';
+        $custom_config = include APP.'config.php';
         $this->config = new Registry(array_merge($default_config, $custom_config));
 
         session_start([
             'cookie_lifetime' => $this->config->cookietime,
         ]);
 
-        require_once (PIXODO.'classes/adapter/MySQLi/MysqliDb.php');
-        $this->db = new MysqliDb ($this->config->db);
+        require_once PIXODO.'classes/adapter/MySQLi/MysqliDb.php';
+        $this->db = new MysqliDb($this->config->db);
         /*include PIXODO . 'classes/adapter/db.php';
         $this->db = new db();
         $this->db->connect($this->config->db);*/
-
     }
 
     public function start()
     {
         $this->uri = new Registry(Router::gi()->parse($_SERVER['REQUEST_URI']));
-        $controller = app::gi($this->uri->controller . 'Controller');
+        $controller = self::gi($this->uri->controller.'Controller');
         ob_start();
-        $controller->__call('action' . $this->uri->action, array($this->uri->id));
+        $controller->__call('action'.$this->uri->action, [$this->uri->id]);
         $content = ob_get_clean();
         if ($this->config->scripts and is_array($this->config->scripts)) {
             foreach ($this->config->scripts as $script) {
@@ -45,14 +43,14 @@ class App extends Singleton
         $controller->renderLayout($content);
     }
 
-    public function console(){
-
+    public function console()
+    {
     }
 
     protected function initSystemHandlers()
     {
-        set_exception_handler(array($this, 'handleException'));
-        set_error_handler(array($this, 'handleError'), error_reporting());
+        set_exception_handler([$this, 'handleException']);
+        set_error_handler([$this, 'handleError'], error_reporting());
     }
 
     public function handleError($code, $message, $file, $line)
@@ -81,19 +79,24 @@ class App extends Singleton
         echo "<p>$message ($file:$line)</p>\n";
         echo '<pre>';
         $trace = debug_backtrace();
-        if (count($trace) > 3)
+        if (count($trace) > 3) {
             $trace = array_slice($trace, 3);
+        }
 
         foreach ($trace as $i => $t) {
-            if (!isset($t['file']))
+            if (!isset($t['file'])) {
                 $t['file'] = 'unknown';
-            if (!isset($t['line']))
+            }
+            if (!isset($t['line'])) {
                 $t['line'] = 0;
-            if (!isset($t['function']))
+            }
+            if (!isset($t['function'])) {
                 $t['function'] = 'unknown';
+            }
             echo "#$i {$t['file']}({$t['line']}): ";
-            if (isset($t['object']) && is_object($t['object']))
-                echo get_class($t['object']) . '->';
+            if (isset($t['object']) && is_object($t['object'])) {
+                echo get_class($t['object']).'->';
+            }
             echo "{$t['function']}()\n";
         }
         echo '</pre>';
@@ -102,8 +105,8 @@ class App extends Singleton
 
     public function displayException($exception)
     {
-        echo '<h1>' . get_class($exception) . "</h1>\n";
-        echo '<p>' . $exception->getMessage() . ' (' . $exception->getFile() . ':' . $exception->getLine() . ')</p>';
-        echo '<pre>' . $exception->getTraceAsString() . '</pre>';
+        echo '<h1>'.get_class($exception)."</h1>\n";
+        echo '<p>'.$exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')</p>';
+        echo '<pre>'.$exception->getTraceAsString().'</pre>';
     }
 }
