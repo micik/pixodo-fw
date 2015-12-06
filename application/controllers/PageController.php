@@ -1,7 +1,9 @@
 <?php
-class PageController extends Controller {
 
-    function actionRead($id='index'){
-        $this->render('read', array('id'=>$id));
+class PageController extends Controller
+{
+    public function actionRead($id = 'index')
+    {
+        $this->render('read', ['id' => $id]);
     }
 }

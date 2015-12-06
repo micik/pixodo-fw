@@ -2,23 +2,23 @@
 
 class User extends Model
 {
+    public $safe = ['id', 'login', 'password', 'email'];
 
-    public $safe = array('id', 'login', 'password', 'email');
-
-    function getAuth()
+    public function getAuth()
     {
         if (isset($_SESSION['auth'])) {
             return true;
         }
         $_SESSION['auth'] = ($this->email == 'admin@admin.com' && $this->password == 'admin') ? true : false;
 
-        if($_SESSION['auth'] == true){
-            $_SESSION['user'] = array(
-                "name" => "Pupkin",
-                "email" => $this->email,
-                "password" => $this->password
-            );
+        if ($_SESSION['auth'] == true) {
+            $_SESSION['user'] = [
+                'name'     => 'Pupkin',
+                'email'    => $this->email,
+                'password' => $this->password,
+            ];
         }
+
         return $_SESSION['auth'];
     }
 

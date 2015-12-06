@@ -2,19 +2,19 @@
 
 class Registry
 {
-    private $data = array();
+    private $data = [];
 
-    function __construct($data = array())
+    public function __construct($data = [])
     {
         $this->data = $data;
     }
 
-    function __get($name)
+    public function __get($name)
     {
         return isset($this->data[$name]) ? $this->data[$name] : null;
     }
 
-    function __set($name, $value)
+    public function __set($name, $value)
     {
         $this->data[$name] = $value;
     }

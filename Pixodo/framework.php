@@ -1,28 +1,35 @@
 <?php
+
 function class_autoload($class_name)
 {
-    $file = PIXODO . 'classes/' . ucfirst(strtolower($class_name)) . '.php';
-    if (file_exists($file) == false)
+    $file = PIXODO.'classes/'.ucfirst(strtolower($class_name)).'.php';
+    if (file_exists($file) == false) {
         return false;
-    require_once($file);
+    }
+    require_once $file;
+
     return true;
 }
 
 function controller_autoload($class_name)
 {
-    $file = APP . 'controllers/' . preg_replace('#controller$#i', 'Controller', ucfirst(strtolower($class_name))) . '.php';
-    if (file_exists($file) == false)
+    $file = APP.'controllers/'.preg_replace('#controller$#i', 'Controller', ucfirst(strtolower($class_name))).'.php';
+    if (file_exists($file) == false) {
         return false;
-    require_once($file);
+    }
+    require_once $file;
+
     return true;
 }
 
 function model_autoload($class_name)
 {
-    $file = APP . 'models/' . ucfirst(strtolower($class_name)) . '.php';
-    if (file_exists($file) == false)
+    $file = APP.'models/'.ucfirst(strtolower($class_name)).'.php';
+    if (file_exists($file) == false) {
         return false;
-    require_once($file);
+    }
+    require_once $file;
+
     return true;
 }
 

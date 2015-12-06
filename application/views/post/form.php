@@ -1,4 +1,5 @@
-<?php if(isset($_SESSION['auth'])) {?>
+<?php if (isset($_SESSION['auth'])) {
+    ?>
 <form action="/post/<?= App::gi()->uri->action ?>" method="post">
     <div class="form-group">
         <label for="name">Название</label>
@@ -13,6 +14,9 @@
     <input type="hidden" name="form[id]" value="<?= intval($item->id) ?>">
     <button type="submit" class="btn btn-default"><?= ($item->id ? 'Сохранить' : 'Создать') ?></button>
 </form>
-<?php }else{ ?>
+<?php 
+} else {
+    ?>
  Need Auth for This Page
-<?php } ?>
+<?php 
+} ?>
