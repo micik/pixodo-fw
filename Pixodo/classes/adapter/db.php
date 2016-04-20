@@ -61,8 +61,6 @@ class db
         if ($this->resource_id and $row = mysql_fetch_object($this->resource_id)) {
             return $field ? $row[$field] : $row;
         }
-
-        return;
     }
 
     public function item($table, $where = '1', $fields = '*', $field = false)
