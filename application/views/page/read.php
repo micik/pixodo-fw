@@ -1,2 +1,1 @@
-<?php
-    include 'pages/'.$id.'.php';
+<?php $this->renderPartial('pages/'.$id);

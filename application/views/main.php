@@ -22,7 +22,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/assets/js/ie-emulation-modes-warning.js"></script>
+    <!--script src="/assets/js/ie-emulation-modes-warning.js"></script>-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -30,51 +30,25 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="blog-nav-item active" href="#">Home</a>
-            <a class="blog-nav-item" href="#">New features</a>
-            <a class="blog-nav-item" href="#">Press</a>
-            <a class="blog-nav-item" href="#">New hires</a>
-            <a class="blog-nav-item" href="#">About</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller=='index' ? 'active' :''?>" href="/">Главная</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller=='user' ? 'active' :''?>" href="/user/">Войти</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller=='page' ? 'active' :''?>" href="/about.html">О фреймворке</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller=='post' ? 'active' :''?>" href="/post">Материалы</a>
         </nav>
-    </div>
-</div>
-
-<div class="container">
-
-    <div class="blog-header">
-        <h1 class="blog-title">The Bootstrap Blog</h1>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+      </div>
     </div>
 
-    <div class="row">
-
-        <?=$content?>
-
-    </div><!-- /.row -->
-
-</div><!-- /.container -->
-
-<footer class="blog-footer">
-    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-    <p>
-        <a href="#">Back to top</a>
-    </p>
-</footer>
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/assets/js/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
-</body>
+    <div class="container">
+        <?= $content ?>
+    </div><!-- /.container -->
+    <footer class="blog-footer">
+		<p><a href="#">Наверх</a></p>
+    </footer>
+	<?php $this->addStyleSheet('/assets/css/blog.css','body'); ?>
+  </body>
 </html>

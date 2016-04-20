@@ -14,9 +14,9 @@
     <input type="hidden" name="form[id]" value="<?= intval($item->id) ?>">
     <button type="submit" class="btn btn-default"><?= ($item->id ? 'Сохранить' : 'Создать') ?></button>
 </form>
-<?php 
+<?php
 } else {
     ?>
  Need Auth for This Page
-<?php 
+<?php
 } ?>
