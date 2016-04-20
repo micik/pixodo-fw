@@ -2,25 +2,24 @@
 
 class User extends Model
 {
+    public $safe = ['id', 'login', 'password', 'email'];
 
-    public $safe = array('id', 'login', 'password', 'email');
-
-    function getAuth()
+    public function getAuth()
     {
-
         if (Auth::gi()->getAuth()) {
             return true;
         }
         $loginOk = ($this->login == 'admin@admin.com' && $this->password == 'admin') ? true : false;
 
-        if($loginOk == true){
+        if ($loginOk == true) {
             Auth::gi()->setAuth($loginOk);
-            Auth::gi()->setUser(array(
-                "name" => "LolaLola",
-                "login" => $this->login,
-                "password" => $this->password,
-            ));
+            Auth::gi()->setUser([
+                'name'     => 'LolaLola',
+                'login'    => $this->login,
+                'password' => $this->password,
+            ]);
         }
+
         return $loginOk;
     }
 

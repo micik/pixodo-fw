@@ -35,10 +35,10 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item <?=app::gi()->uri->controller=='index' ? 'active' :''?>" href="/">Главная</a>
-          <a class="blog-nav-item <?=app::gi()->uri->controller=='user' ? 'active' :''?>" href="/user/">Войти</a>
-          <a class="blog-nav-item <?=app::gi()->uri->controller=='page' ? 'active' :''?>" href="/about.html">О фреймворке</a>
-          <a class="blog-nav-item <?=app::gi()->uri->controller=='post' ? 'active' :''?>" href="/post">Материалы</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller == 'index' ? 'active' : ''?>" href="/">Главная</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller == 'user' ? 'active' : ''?>" href="/user/">Войти</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller == 'page' ? 'active' : ''?>" href="/about.html">О фреймворке</a>
+          <a class="blog-nav-item <?=app::gi()->uri->controller == 'post' ? 'active' : ''?>" href="/post">Материалы</a>
         </nav>
       </div>
     </div>
@@ -49,6 +49,6 @@
     <footer class="blog-footer">
 		<p><a href="#">Наверх</a></p>
     </footer>
-	<?php $this->addStyleSheet('/assets/css/blog.css','body'); ?>
+	<?php $this->addStyleSheet('/assets/css/blog.css', 'body'); ?>
   </body>
 </html>
