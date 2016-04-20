@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2015
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  *
- * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class 
+ * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  *
  * @version   2.6-master
  *
@@ -391,7 +391,7 @@ class dbObject
      */
     protected function get($limit = null, $fields = null)
     {
-        $objects =  [];
+        $objects = [];
         $this->processHasOneWith();
         $results = $this->db->ArrayBuilder()->get($this->dbTable, $limit, $fields);
         if ($this->db->count == 0) {
@@ -683,7 +683,7 @@ class dbObject
             }
 
             if ($required && strlen($value) == 0) {
-                $this->errors[] =  [$this->dbTable.'.'.$key => 'is required'];
+                $this->errors[] = [$this->dbTable.'.'.$key => 'is required'];
                 continue;
             }
             if ($value == null) {
@@ -691,7 +691,7 @@ class dbObject
             }
 
             switch ($type) {
-                case 'text';
+                case 'text':
                     $regexp = null;
                     break;
                 case 'int':
@@ -715,7 +715,7 @@ class dbObject
             }
 
             if (!preg_match($regexp, $value)) {
-                $this->errors[] =  [$this->dbTable.'.'.$key => "$type validation failed"];
+                $this->errors[] = [$this->dbTable.'.'.$key => "$type validation failed"];
                 continue;
             }
         }
@@ -725,7 +725,7 @@ class dbObject
 
     private function prepareData()
     {
-        $this->errors =  [];
+        $this->errors = [];
         $sqlData = [];
         if (count($this->data) == 0) {
             return [];
