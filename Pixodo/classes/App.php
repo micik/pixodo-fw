@@ -12,9 +12,9 @@ class App extends Singleton
         $custom_config = include APP.'config.php';
         $this->config = new Registry(array_merge($default_config, $custom_config));
 
-        session_start([
+        /*session_start([
             'cookie_lifetime' => $this->config->cookietime,
-        ]);
+        ]);*/
 
         require_once PIXODO.'classes/adapter/MySQLi/MysqliDb.php';
         $this->db = new MysqliDb($this->config->db);
