@@ -51,6 +51,7 @@ class Request extends Singleton
     }
 
     private $_queryParams;
+    private $_bodyParams;
 
     /**
      * Returns the request parameters given in the [[queryString]].
@@ -84,7 +85,10 @@ class Request extends Singleton
     public function getBodyParams()
     {
 
-
+        if ($this->_bodyParams === null) {
+            return $_POST;
+        }
+        return $this->_bodyParams;
 
     }
 

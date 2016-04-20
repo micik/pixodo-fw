@@ -16,7 +16,6 @@ abstract class Modeltable extends Model
         $modelName = get_called_class();
         if ($this->beforeSave()) {
             if (!$this->__get(self::$primary)) {
-                var_dump((array) $this->_data);
                 $res = App::gi()->db->insert($modelName::$table, (array) $this->_data);
                 $this->__set($modelName::$primary, $res);
                 return $res;

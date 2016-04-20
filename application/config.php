@@ -10,11 +10,11 @@ return array(
         '([a-z0-9+_\-]+)\.html' => 'page/read/$id',
     ),
     'scripts'=>array(
-        '/assets/js/libs/jquery-2.1.3.min.js',
-        '/assets/js/libs/bootstrap/js/bootstrap.min.js',
+        //'/assets/js/jquery-2.1.4.min.js',
+        //'/assets/bootstrap/js/bootstrap.min.js',
     ),
     'styles'=>array(
-        '/assets/js/libs/bootstrap/css/bootstrap.min.css',
-        '/assets/js/libs/bootstrap/css/bootstrap-theme.min.css',
+        //'/assets/bootstrap/css/bootstrap.min.css',
+        //'/assets/bootstrap/css/bootstrap-theme.min.css',
     ),
 );

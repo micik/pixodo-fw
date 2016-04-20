@@ -8,14 +8,15 @@ class UserController extends Controller{
 
     function actionLogin() {
         $user = new User();
-        if (!empty($_POST['email'])) {
-            $user->login = $_POST['email'];
-            $user->password = $_POST['password'];
+        if (!empty(Request::gI()->post())) {
+            $post = Request::gI()->post();
+            $user->login = $post['email'];
+            $user->password = $post['password'];
             if ($user->auth) {
                 header('Location:/');
                 exit();
             } else {
-                var_dump("error login");
+                echo "error login";
             }
         }
         $this->render('login',array('model'=>$user));

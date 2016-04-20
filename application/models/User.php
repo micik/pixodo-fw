@@ -7,19 +7,21 @@ class User extends Model
 
     function getAuth()
     {
-        if (isset($_SESSION['auth'])) {
+
+        if (Auth::gi()->getAuth()) {
             return true;
         }
-        $_SESSION['auth'] = ($this->email == 'admin@admin.com' && $this->password == 'admin') ? true : false;
+        $loginOk = ($this->login == 'admin@admin.com' && $this->password == 'admin') ? true : false;
 
-        if($_SESSION['auth'] == true){
-            $_SESSION['user'] = array(
-                "name" => "Pupkin",
-                "email" => $this->email,
-                "password" => $this->password
-            );
+        if($loginOk == true){
+            Auth::gi()->setAuth($loginOk);
+            Auth::gi()->setUser(array(
+                "name" => "LolaLola",
+                "login" => $this->login,
+                "password" => $this->password,
+            ));
         }
-        return $_SESSION['auth'];
+        return $loginOk;
     }
 
     /*function getFullName() {
