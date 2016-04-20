@@ -28,7 +28,7 @@ class App extends Singleton
         $this->uri = new Registry(Router::gi()->parse($_SERVER['REQUEST_URI']));
         $controller = self::gi($this->uri->controller.'Controller');
         ob_start();
-        $controller->__call('action'.$this->uri->action, [$this->uri->id]);
+        $controller->__call('action'.$this->uri->action, array($this->uri->id));
         $content = ob_get_clean();
         if ($this->config->scripts and is_array($this->config->scripts)) {
             foreach ($this->config->scripts as $script) {
