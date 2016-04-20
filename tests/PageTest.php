@@ -1,6 +1,6 @@
 <?php
-define('PIXODO', dirname(__FILE__).'/../Pixodo/');
-define('APP', dirname(__FILE__).'/../application/');
+defined('PIXODO') or define('PIXODO', dirname(__FILE__).'/../Pixodo/');
+defined('PIXODO') or define('APP', dirname(__FILE__).'/../application/');
 
 class PageTest extends PHPUnit_Framework_TestCase
 {
