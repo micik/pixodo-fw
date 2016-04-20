@@ -1,17 +1,21 @@
 <?php
-class Config extends Singleton {
 
-    private $data = array();
+class Config extends Singleton
+{
+    private $data = [];
 
-    function associate( $group,&$array ){
+    public function associate($group, &$array)
+    {
         $this->data[$group] = $array;
     }
 
-    function __get($name){
-        return isset($this->data[$name])?$this->data[$name]:null;
+    public function __get($name)
+    {
+        return isset($this->data[$name]) ? $this->data[$name] : null;
     }
 
-    function __set($name,$value){
+    public function __set($name, $value)
+    {
         $this->data[$name] = $value;
     }
 }

@@ -2,9 +2,9 @@
 
 class Post extends ModelTable
 {
-    static public $table = 'posts';
+    public static $table = 'posts';
 
-    public $safe = array('id', 'name', 'content');
+    public $safe = ['id', 'name', 'content'];
 
     public function beforeSave()
     {

@@ -2,20 +2,20 @@
 
 class PostController extends Controller
 {
-    function actionIndex()
+    public function actionIndex()
     {
         $posts = Post::models();
-        $this->render('index', array('items' => $posts));
+        $this->render('index', ['items' => $posts]);
     }
 
-    function actionRead()
+    public function actionRead()
     {
         $post = new Post();
         $posts = $post->models();
-        $this->render('index', array('items' => $post));
+        $this->render('index', ['items' => $post]);
     }
 
-    function actionCreate()
+    public function actionCreate()
     {
         $post = new Post();
         if (isset($_POST['form'])) {
@@ -25,12 +25,12 @@ class PostController extends Controller
                 exit();
             }
         }
-        $this->render('form', array('item' => $post));
+        $this->render('form', ['item' => $post]);
     }
 
-    function actionUpdate($id)
+    public function actionUpdate($id)
     {
-        $id = (int)$id ? (int)$id : (int)$_POST['form']['id'];
+        $id = (int) $id ? (int) $id : (int) $_POST['form']['id'];
         $post = Post::model($id);
         if ($post->id) {
             if (isset($_POST['form'])) {
@@ -40,7 +40,7 @@ class PostController extends Controller
                     exit();
                 }
             }
-            $this->render('form', array('item' => $post));
+            $this->render('form', ['item' => $post]);
         } else {
             throw new Except('Запись не найдена');
         }

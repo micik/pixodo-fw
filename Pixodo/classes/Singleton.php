@@ -2,18 +2,21 @@
 
 abstract class Singleton
 {
-    private static $_aInstances = array();
+    private static $_aInstances = [];
 
     public static function getInstance($className = false)
     {
         $sClassName = ($className === false) ? get_called_class() : $className;
         if (class_exists($sClassName)) {
-            if (!isset(self::$_aInstances[$sClassName]))
+            if (!isset(self::$_aInstances[$sClassName])) {
                 self::$_aInstances[$sClassName] = new $sClassName();
+            }
             $oInstance = self::$_aInstances[$sClassName];
+
             return $oInstance;
-        } else
-            throw new Except('Class ' . $sClassName . '  no exist!');
+        } else {
+            throw new Except('Class '.$sClassName.'  no exist!');
+        }
     }
 
     public static function gI($className = false)
