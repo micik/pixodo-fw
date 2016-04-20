@@ -50,7 +50,7 @@ class App extends Singleton
     protected function initSystemHandlers()
     {
         set_exception_handler(array($this, 'handleException'));
-        set_error_handler(array([$this, 'handleError']), error_reporting());
+        set_error_handler(array($this, 'handleError'), error_reporting());
     }
 
     public function handleError($code, $message, $file, $line)
