@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2010
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  *
- * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class 
+ * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  *
  * @version   2.6-master
  */
@@ -264,7 +264,7 @@ class MysqliDb
 
     /**
      * A method to connect to the database.
-     * 
+     *
      * @throws Exception
      *
      * @return void
@@ -292,7 +292,7 @@ class MysqliDb
 
     /**
      * A method to get mysqli object or create it in case needed.
-     * 
+     *
      * @return mysqli
      */
     public function mysqli()
@@ -388,7 +388,7 @@ class MysqliDb
      * Method to set a prefix.
      *
      * @param string $prefix Contains a tableprefix
-     * 
+     *
      * @return MysqliDb
      */
     public function setPrefix($prefix = '')
@@ -447,8 +447,6 @@ class MysqliDb
         if (is_array($res) && isset($res[0])) {
             return $res[0];
         }
-
-        return;
     }
 
     /**
@@ -484,7 +482,7 @@ class MysqliDb
 
     /**
      * A method to perform select query.
-     * 
+     *
      * @param string    $query   Contains a user-provided select query.
      * @param int|array $numRows Array to define SQL limit in format Array ($count, $offset)
      *
@@ -508,7 +506,7 @@ class MysqliDb
      * @uses $MySqliDb->setQueryOption('name');
      *
      * @param string|array $options The optons name of the query.
-     * 
+     *
      * @throws Exception
      *
      * @return MysqliDb
@@ -600,7 +598,7 @@ class MysqliDb
      *
      * @param string $tableName The name of the database table to work with.
      * @param string $columns   Desired columns
-     * 
+     *
      * @return array Contains the returned rows from the select query.
      */
     public function getOne($tableName, $columns = '*')
@@ -614,15 +612,13 @@ class MysqliDb
         } elseif ($res) {
             return $res;
         }
-
-        return;
     }
 
     /**
      * A convenient SELECT COLUMN function to get a single column value from one row.
      *
      * @param string $tableName The name of the database table to work with.
-     * @param string $column    The desired column 
+     * @param string $column    The desired column
      * @param int    $limit     Limit of rows to select. Use null for unlimited..1 by default
      *
      * @return mixed Contains the value of a returned column / array of values
@@ -783,7 +779,7 @@ class MysqliDb
      *
      * @param array  $updateColumns Variable with values
      * @param string $lastInsertId  Variable value
-     * 
+     *
      * @return MysqliDb
      */
     public function onDuplicate($updateColumns, $lastInsertId = null)
@@ -862,7 +858,7 @@ class MysqliDb
      * @param string $joinTable     The name of the table.
      * @param string $joinCondition the condition.
      * @param string $joinType      'LEFT', 'INNER' etc.
-     * 
+     *
      * @throws Exception
      *
      * @return MysqliDb
@@ -893,7 +889,7 @@ class MysqliDb
      * @param string $orderByField     The name of the database field.
      * @param string $orderByDirection Order direction.
      * @param array  $customFields     Fieldset for ORDER BY FIELD() ordering
-     * 
+     *
      * @throws Exception
      *
      * @return MysqliDb
@@ -1044,7 +1040,7 @@ class MysqliDb
      *
      * @param string $operator
      * @param mixed  $value    Variable with values
-     * 
+     *
      * @return string
      */
     protected function _buildPair($operator, $value)
@@ -1253,7 +1249,7 @@ class MysqliDb
 
     /**
      * Abstraction method that will build an JOIN part of the query.
-     * 
+     *
      * @return void
      */
     protected function _buildJoin()
@@ -1279,11 +1275,11 @@ class MysqliDb
 
     /**
      * Insert/Update query helper.
-     * 
+     *
      * @param array $tableData
      * @param array $tableColumns
      * @param bool  $isInsert     INSERT operation flag
-     * 
+     *
      * @throws Exception
      */
     public function _buildDataPairs($tableData, $tableColumns, $isInsert)
@@ -1363,7 +1359,7 @@ class MysqliDb
 
     /**
      * Abstraction method that will build an INSERT or UPDATE part of the query.
-     * 
+     *
      * @param array $tableData
      */
     protected function _buildInsertQuery($tableData)
@@ -1389,7 +1385,7 @@ class MysqliDb
 
     /**
      * Abstraction method that will build the part of the WHERE conditions.
-     * 
+     *
      * @param string $operator
      * @param array  $conditions
      */
@@ -1489,7 +1485,7 @@ class MysqliDb
      *
      * @param int|array $numRows Array to define SQL limit in format Array ($count, $offset)
      *                           or only $count
-     * 
+     *
      * @return void
      */
     protected function _buildLimit($numRows)
@@ -1526,7 +1522,7 @@ class MysqliDb
 
     /**
      * Close connection.
-     * 
+     *
      * @return void
      */
     public function __destruct()
@@ -1543,7 +1539,7 @@ class MysqliDb
 
     /**
      * Referenced data array is required by mysqli since PHP 5.3+.
-     * 
+     *
      * @param array $arr
      *
      * @return array
@@ -1567,7 +1563,7 @@ class MysqliDb
 
     /**
      * Function to replace ? with variables from bind variable.
-     * 
+     *
      * @param string $str
      * @param array  $vals
      *
@@ -1705,9 +1701,9 @@ class MysqliDb
 
     /**
      * Method generates incremental function call.
-     * 
+     *
      * @param int $num increment by int or float. 1 by default
-     * 
+     *
      * @throws Exception
      *
      * @return array
@@ -1723,9 +1719,9 @@ class MysqliDb
 
     /**
      * Method generates decrimental function call.
-     * 
+     *
      * @param int $num increment by int or float. 1 by default
-     * 
+     *
      * @return array
      */
     public function dec($num = 1)
@@ -1739,9 +1735,9 @@ class MysqliDb
 
     /**
      * Method generates change boolean function call.
-     * 
+     *
      * @param string $col column name. null by default
-     * 
+     *
      * @return array
      */
     public function not($col = null)
@@ -1751,10 +1747,10 @@ class MysqliDb
 
     /**
      * Method generates user defined function call.
-     * 
+     *
      * @param string $expr       user function body
      * @param array  $bindParams
-     * 
+     *
      * @return array
      */
     public function func($expr, $bindParams = null)
@@ -1764,9 +1760,9 @@ class MysqliDb
 
     /**
      * Method creates new mysqlidb object for a subquery generation.
-     * 
+     *
      * @param string $subQueryAlias
-     * 
+     *
      * @return MysqliDb
      */
     public static function subQuery($subQueryAlias = '')
@@ -1845,7 +1841,7 @@ class MysqliDb
      *
      * @param bool   $enabled     Enable execution time tracking
      * @param string $stripPrefix Prefix to strip from the path in exec log
-     * 
+     *
      * @return MysqliDb
      */
     public function setTrace($enabled, $stripPrefix = null)
@@ -1900,9 +1896,9 @@ class MysqliDb
 
     /**
      * Return result as an associative array with $idField field value used as a record key.
-     * 
+     *
      * Array Returns an array($k => $v) if get(.."param1, param2"), array ($k => array ($v, $v)) otherwise
-     * 
+     *
      * @param string $idField field name to use for a mapped element key
      *
      * @return MysqliDb
@@ -1926,7 +1922,7 @@ class MysqliDb
     public function paginate($table, $page, $fields = null)
     {
         $offset = $this->pageLimit * ($page - 1);
-        $res = $this->withTotalCount()->get($table,  [$offset, $this->pageLimit], $fields);
+        $res = $this->withTotalCount()->get($table, [$offset, $this->pageLimit], $fields);
         $this->totalPages = ceil($this->totalCount / $this->pageLimit);
 
         return $res;
