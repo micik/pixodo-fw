@@ -12,7 +12,7 @@ abstract class Model
 
     public function __set($name, $value)
     {
-        if ($name === '__attributes') {
+        if ($name === '__attributes' && !empty($value)) {
             foreach ($value as $key => $val) {
                 $this->__set($key, $val);
             }
