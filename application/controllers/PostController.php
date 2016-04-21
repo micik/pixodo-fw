@@ -4,15 +4,14 @@ class PostController extends Controller
 {
     public function actionIndex()
     {
-        $posts = Post::models();
+        $posts = Post::all();
         $this->render('index', ['items' => $posts]);
     }
 
-    public function actionRead()
+    public function actionRead($id)
     {
-        $post = new Post();
-        $posts = $post->models();
-        $this->render('index', ['items' => $post]);
+        $post = Post::findByPk($id);
+        $this->render('index', ['post' => $post]);
     }
 
     public function actionCreate()
@@ -31,7 +30,7 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $id = (int) $id ? (int) $id : (int) $_POST['form']['id'];
-        $post = Post::model($id);
+        $post = Post::findByPk($id);
         if ($post->id) {
             if (isset($_POST['form'])) {
                 $post->__attributes = $_POST['form'];

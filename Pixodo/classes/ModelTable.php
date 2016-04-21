@@ -29,7 +29,7 @@ abstract class ModelTable extends Model
         }
     }
 
-    public static function models()
+    public static function all()
     {
         $modelName = get_called_class();
         $items = App::gi()->db->get($modelName::$table);
@@ -43,10 +43,21 @@ abstract class ModelTable extends Model
         return $results;
     }
 
-    public static function model($id)
+    public static function findByPk($id)
     {
         $modelName = get_called_class();
         App::gi()->db->where($modelName::$primary, $id);
+        $item = App::gi()->db->getOne($modelName::$table);
+        $model = new $modelName();
+        $model->__attributes = $item;
+
+        return $model;
+    }
+
+    public static function findByAttribute($key,$value)
+    {
+        $modelName = get_called_class();
+        App::gi()->db->where($key, $value);
         $item = App::gi()->db->getOne($modelName::$table);
         $model = new $modelName();
         $model->__attributes = $item;
