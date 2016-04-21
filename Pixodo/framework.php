@@ -22,6 +22,17 @@ function controller_autoload($class_name)
     return true;
 }
 
+function console_autoload($class_name)
+{
+    $file = APP.'console/'.preg_replace('#console#i', 'Console', ucfirst(strtolower($class_name))).'.php';
+    if (file_exists($file) == false) {
+        return false;
+    }
+    require_once $file;
+
+    return true;
+}
+
 function model_autoload($class_name)
 {
     $file = APP.'models/'.ucfirst(strtolower($class_name)).'.php';
@@ -35,4 +46,5 @@ function model_autoload($class_name)
 
 spl_autoload_register('class_autoload');
 spl_autoload_register('controller_autoload');
+spl_autoload_register('console_autoload');
 spl_autoload_register('model_autoload');

@@ -8,23 +8,27 @@ class App extends Singleton
     public function __construct()
     {
         $this->initSystemHandlers();
-        $default_config = include PIXODO.'config.php';
-        $custom_config = include APP.'config.php';
-        $this->config = new Registry(array_merge($default_config, $custom_config));
+
+        $default_config = require PIXODO.'config.php';
+        $app_config     = require APP.'config.php';
+        $this->config = new Registry(array_merge($default_config, $app_config));
 
         /*session_start([
             'cookie_lifetime' => $this->config->cookietime,
         ]);*/
 
-        require_once PIXODO.'classes/adapter/MySQLi/MysqliDb.php';
-        $this->db = new MysqliDb($this->config->db);
-        /*include PIXODO . 'classes/adapter/db.php';
-        $this->db = new db();
-        $this->db->connect($this->config->db);*/
+        $this->dbConnect($this->config->db);
+
     }
 
-    public function start()
+    public function dbConnect($config){
+        require_once PIXODO.'classes/adapter/MySQLi/MysqliDb.php';
+        $this->db = new MysqliDb($config);
+    }
+
+    public function start($custom_config = [])
     {
+
         $this->uri = new Registry(Router::gi()->parse($_SERVER['REQUEST_URI']));
         $controller = self::gi($this->uri->controller.'Controller');
         ob_start();
@@ -43,8 +47,21 @@ class App extends Singleton
         $controller->renderLayout($content);
     }
 
-    public function console()
+    public function console($custom_config = [])
     {
+
+        if(!empty($custom_config) && is_array($custom_config)){
+            $default_config = require PIXODO.'config.php';
+            $this->config = new Registry(array_merge($default_config, $custom_config));
+        }
+
+        $argv = $_SERVER['argv'];
+        if(!empty($argv[1])){
+            $this->uri = new Registry(Router::gi()->parse($argv[1]));
+            $controller = self::gi($this->uri->controller.'Console');
+            $controller->__call('action'.$this->uri->action, [$this->uri->id]);
+        }
+
     }
 
     protected function initSystemHandlers()
