@@ -1,6 +1,6 @@
 <?php
 
-abstract class Modeltable extends Model
+abstract class ModelTable extends Model
 {
     public $errors = [];
     public static $table = '{table}';

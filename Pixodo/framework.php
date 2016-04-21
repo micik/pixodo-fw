@@ -2,7 +2,7 @@
 
 function class_autoload($class_name)
 {
-    $file = PIXODO.'classes/'.ucfirst(strtolower($class_name)).'.php';
+    $file = PIXODO.'classes/'.ucfirst($class_name).'.php';
     if (file_exists($file) == false) {
         return false;
     }
@@ -35,7 +35,7 @@ function console_autoload($class_name)
 
 function model_autoload($class_name)
 {
-    $file = APP.'models/'.ucfirst(strtolower($class_name)).'.php';
+    $file = APP.'models/'.preg_replace('#model#i', 'Model', ucfirst(strtolower($class_name))).'.php';
     if (file_exists($file) == false) {
         return false;
     }
