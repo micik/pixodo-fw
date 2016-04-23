@@ -57,8 +57,11 @@ class App extends Singleton
         }
 
         $argv = $_SERVER['argv'];
-        if(!empty($argv[1])){
-            $this->uri = new Registry(Router::gi()->parse($argv[1]));
+        if(is_array($argv)){
+            $argv = $argv[1];
+        }
+        if(!empty($argv)){
+            $this->uri = new Registry(Router::gi()->parse($argv));
             $controller = self::gi($this->uri->controller.'Console');
             $controller->__call('action'.$this->uri->action, [$this->uri->id]);
         }
