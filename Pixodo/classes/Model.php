@@ -4,10 +4,12 @@ abstract class Model
 {
     protected $_data = null;
     public $safe = [];
+    public $trace = false;
 
     public function __construct()
     {
         $this->_data = new stdClass();
+        App::gi()->db->setTrace($this->trace);
     }
 
     public function __set($name, $value)

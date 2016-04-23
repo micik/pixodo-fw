@@ -29,7 +29,7 @@ abstract class ModelTable extends Model
         }
     }
 
-    public static function all()
+    public static function findAll()
     {
         $modelName = get_called_class();
         $items = App::gi()->db->get($modelName::$table);
@@ -54,14 +54,39 @@ abstract class ModelTable extends Model
         return $model;
     }
 
-    public static function findByAttribute($key,$value)
+    public function findAllByAttribute($data = []){
+
+    }
+
+    public static function findByAttribute($data = [])
     {
         $modelName = get_called_class();
-        App::gi()->db->where($key, $value);
+        foreach($data as $key=>$value){
+            App::gi()->db->where($key, $value);
+        }
         $item = App::gi()->db->getOne($modelName::$table);
         $model = new $modelName();
         $model->__attributes = $item;
 
         return $model;
+    }
+
+    public static function error()
+    {
+        if(!empty(App::gi()->db->getLastError())){
+            return App::gi()->db->getLastError();
+        }else{
+            return false;
+        }
+    }
+
+    public function setTrace($trace)
+    {
+        $this->trace = $trace;
+    }
+
+    public static function getTrace()
+    {
+        return App::gi()->db->trace;
     }
 }

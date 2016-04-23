@@ -4,6 +4,7 @@ class App extends Singleton
 {
     public $config = null;
     public $uri = null;
+    public $db = null;
 
     public function __construct()
     {
