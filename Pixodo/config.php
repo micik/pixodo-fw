@@ -2,7 +2,7 @@
 
 return [
     'encode'             => 'utf-8',
-    'cookietime'         => 3600,
+    'cookieLifetime'         => 3600,
     'version'            => '1.0.0',
     'default_controller' => 'index',
     'default_action'     => 'index',

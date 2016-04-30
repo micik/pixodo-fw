@@ -14,9 +14,9 @@ class App extends Singleton
         $app_config     = require APP.'config.php';
         $this->config = new Registry(array_merge($default_config, $app_config));
 
-        /*session_start([
-            'cookie_lifetime' => $this->config->cookietime,
-        ]);*/
+        session_set_cookie_params($this->config->cookieLifetime);
+        session_start();
+        setcookie(session_name(),session_id(),time()+$this->config->cookieLifetime);
 
         $this->dbConnect($this->config->db);
 
@@ -29,6 +29,10 @@ class App extends Singleton
 
     public function start($custom_config = [])
     {
+        if(!empty($custom_config) && is_array($custom_config)){
+            $default_config = require PIXODO.'config.php';
+            $this->config = new Registry(array_merge($default_config, $custom_config));
+        }
 
         $this->uri = new Registry(Router::gi()->parse($_SERVER['REQUEST_URI']));
         $controller = self::gi($this->uri->controller.'Controller');

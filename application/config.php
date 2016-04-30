@@ -2,7 +2,7 @@
 
 return [
     'sitename'   => 'sitename var test',
-    'cookietime' => 86400,
+    'cookieLifetime' => 86400,
     'db'         => include('config.db.php'),
     'router'     => [
         '([a-z0-9+_\-]+)/([a-z0-9+_\-]+)/([0-9]+)' => '$controller/$action/$id',

@@ -15,18 +15,31 @@ abstract class ModelTable extends Model
     {
         $modelName = get_called_class();
         if ($this->beforeSave()) {
-            if (!$this->__get(self::$primary)) {
+            if (!$this->__get($this::$primary)) {
                 $res = App::gi()->db->insert($modelName::$table, (array) $this->_data);
                 $this->__set($modelName::$primary, $res);
 
                 return $res;
             } else {
-                App::gi()->db->where($modelName::$primary, $this->__get(self::$primary));
+                App::gi()->db->where($modelName::$primary, $this->__get($this::$primary));
                 App::gi()->db->update($modelName::$table, (array) $this->_data);
 
                 return App::gi()->db->count;
             }
         }
+
+        return false;
+    }
+
+    public function saveHard(){
+        $modelName = get_called_class();
+        if ($this->beforeSave()) {
+            $res = App::gi()->db->insert($modelName::$table, (array) $this->_data);
+            $this->__set($modelName::$primary, $res);
+            return $res;
+        }
+
+        return false;
     }
 
     public static function findAll()
@@ -52,10 +65,6 @@ abstract class ModelTable extends Model
         $model->__attributes = $item;
 
         return $model;
-    }
-
-    public function findAllByAttribute($data = []){
-
     }
 
     public static function findByAttribute($data = [])

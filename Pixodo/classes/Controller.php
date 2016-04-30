@@ -2,6 +2,7 @@
 
 class Controller extends Singleton
 {
+
     public function __call($methodName, $args = [])
     {
         if (method_exists($this, $methodName)) {
@@ -13,6 +14,7 @@ class Controller extends Singleton
 
     public $tplPath = '';
     public $tplControllerPath = '';
+    public $layout = "main.php";
 
     public function __construct()
     {
@@ -68,30 +70,36 @@ class Controller extends Singleton
      */
     public function renderLayout($content)
     {
-        $html = $this->_renderPartial($this->tplPath.'main.php', ['content' => $content], false);
-        $output = ['head' => '', 'body' => ''];
-        foreach ($this->assets as $item) {
-            if ($item['asset'] == 'script') {
-                if ($item['type'] == 'inline') {
-                    $output[$item['where']] .= '<script type="text/javascript">'.$item['data'].'</script>'."\n";
+        if($this->layout){
+
+            $html = $this->_renderPartial($this->tplPath.$this->layout, ['content' => $content], false);
+            $output = ['head' => '', 'body' => ''];
+            foreach ($this->assets as $item) {
+                if ($item['asset'] == 'script') {
+                    if ($item['type'] == 'inline') {
+                        $output[$item['where']] .= '<script type="text/javascript">'.$item['data'].'</script>'."\n";
+                    } else {
+                        $output[$item['where']] .= '<script type="text/javascript" src="'.$item['data'].'"></script>'."\n";
+                    }
                 } else {
-                    $output[$item['where']] .= '<script type="text/javascript" src="'.$item['data'].'"></script>'."\n";
-                }
-            } else {
-                if ($item['type'] == 'inline') {
-                    $output[$item['where']] .= '<style>'.$item['data'].'</style>'."\n";
-                } else {
-                    $output[$item['where']] .= '<link rel="stylesheet" href="'.$item['data'].'" type="text/css" />'."\n";
+                    if ($item['type'] == 'inline') {
+                        $output[$item['where']] .= '<style>'.$item['data'].'</style>'."\n";
+                    } else {
+                        $output[$item['where']] .= '<link rel="stylesheet" href="'.$item['data'].'" type="text/css" />'."\n";
+                    }
                 }
             }
+            if ($output['head']) {
+                $html = preg_replace('#(<\/head>)#iu', $output['head'].'$1', $html);
+            }
+            if ($output['body']) {
+                $html = preg_replace('#(<\/body>)#iu', $output['body'].'$1', $html);
+            }
+            echo $html;
+
+        }else{
+            echo $content;
         }
-        if ($output['head']) {
-            $html = preg_replace('#(<\/head>)#iu', $output['head'].'$1', $html);
-        }
-        if ($output['body']) {
-            $html = preg_replace('#(<\/body>)#iu', $output['body'].'$1', $html);
-        }
-        echo $html;
     }
 
     private $assets = [];

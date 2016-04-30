@@ -9,8 +9,7 @@ MysqliDb -- Simple MySQLi wrapper and object mapper with prepared statements
 **[Delete Query](#delete-query)**  
 **[Running raw SQL queries](#running-raw-sql-queries)**  
 **[Query Keywords](#query-keywords)**  
-**[Raw Query](#raw-query-method)**  
-**[Where Conditions](#where-method)**  
+**[Where Conditions](#where--having-methods)**  
 **[Order Conditions](#ordering-method)**  
 **[Group Conditions](#grouping-method)**  
 **[Properties Sharing](#properties-sharing)**  
@@ -18,8 +17,9 @@ MysqliDb -- Simple MySQLi wrapper and object mapper with prepared statements
 **[Subqueries](#subqueries)**  
 **[EXISTS / NOT EXISTS condition](#exists--not-exists-condition)**  
 **[Has method](#has-method)**  
-**[Helper Functions](#helper-commands)**  
+**[Helper Methods](#helper-methods)**  
 **[Transaction Helpers](#transaction-helpers)**  
+**[Error Helpers](#error-helpers)**
 
 ### Installation
 To utilize this class, first import MysqliDb.php into your project, and require it.
@@ -150,6 +150,12 @@ if ($db->update ('users', $data))
     echo $db->count . ' records were updated';
 else
     echo 'update failed: ' . $db->getLastError();
+```
+
+`update()` also support limit parameter:
+```php
+$db->update ('users', $data, 10);
+// Gives: UPDATE users SET ... LIMIT 10
 ```
 
 ### Select Query
@@ -371,9 +377,9 @@ $results = $db->get ('users');
 
 NULL comparison:
 ```php
-$db->where ("lastName", NULL, '<=>');
+$db->where ("lastName", NULL, 'IS NOT');
 $results = $db->get("users");
-// Gives: SELECT * FROM users where lastName <=> NULL
+// Gives: SELECT * FROM users where lastName IS NOT NULL
 ```
 
 Also you can use raw where conditions:
@@ -576,7 +582,7 @@ if($db->has("users")) {
     return "Wrong user/password";
 }
 ``` 
-### Helper commands
+### Helper methods
 Reconnect in case mysql connection died:
 ```php
 if (!$db->ping())
@@ -595,6 +601,12 @@ Check if table exists:
     if ($db->tableExists ('users'))
         echo "hooray";
 ```
+
+mysqli_real_escape_string() wrapper:
+```php
+    $escaped = $db->escape ("' and 1=1");
+```
+
 ### Transaction helpers
 Please keep in mind that transactions are working on innoDB tables.
 Rollback transaction if insert fails:
@@ -608,6 +620,17 @@ if (!$db->insert ('myTable', $insertData)) {
     //OK
     $db->commit();
 }
+```
+
+### Error helpers
+After you executed a query you have options to check if there was an error. You can get the MySQL error string or the error code for the last executed query. 
+```php
+$db->where('login', 'admin')->update('users', ['firstName' => 'Jack']);
+
+if ($db->getLastErrno() === 0)
+    echo 'Update succesfull';
+else
+    echo 'Update failed. Error: '. $db->getLastError();
 ```
 
 ### Query exectution time benchmarking

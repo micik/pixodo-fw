@@ -1,5 +1,10 @@
 <?php
 
+if (version_compare(phpversion(), '5.5.0', '<')) {
+    printf("PHP 5.5.0 is required, you have %s\n", phpversion());
+    exit(1);
+}
+
 function class_autoload($class_name)
 {
     $file = PIXODO.'classes/'.ucfirst($class_name).'.php';
@@ -13,7 +18,7 @@ function class_autoload($class_name)
 
 function controller_autoload($class_name)
 {
-    $file = APP.'controllers/'.preg_replace('#controller$#i', 'Controller', ucfirst(strtolower($class_name))).'.php';
+    $file = APP.'controllers/'.preg_replace('#controller$#i', 'Controller', ucfirst($class_name)).'.php';
     if (file_exists($file) == false) {
         return false;
     }
@@ -24,7 +29,7 @@ function controller_autoload($class_name)
 
 function console_autoload($class_name)
 {
-    $file = APP.'console/'.preg_replace('#console#i', 'Console', ucfirst(strtolower($class_name))).'.php';
+    $file = APP.'console/'.preg_replace('#console#i', 'Console', ucfirst($class_name)).'.php';
     if (file_exists($file) == false) {
         return false;
     }
@@ -35,7 +40,7 @@ function console_autoload($class_name)
 
 function model_autoload($class_name)
 {
-    $file = APP.'models/'.preg_replace('#model#i', 'Model', ucfirst(strtolower($class_name))).'.php';
+    $file = APP.'models/'.preg_replace('#model#i', 'Model', ucfirst($class_name)).'.php';
     if (file_exists($file) == false) {
         return false;
     }
