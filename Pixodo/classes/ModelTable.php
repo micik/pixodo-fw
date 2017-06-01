@@ -15,13 +15,13 @@ abstract class ModelTable extends Model
     {
         $modelName = get_called_class();
         if ($this->beforeSave()) {
-            if (!$this->__get($this::$primary)) {
+            if (!$this->__get(static::$primary)) {
                 $res = App::gi()->db->insert($modelName::$table, (array) $this->_data);
                 $this->__set($modelName::$primary, $res);
 
                 return $res;
             } else {
-                App::gi()->db->where($modelName::$primary, $this->__get($this::$primary));
+                App::gi()->db->where($modelName::$primary, $this->__get(static::$primary));
                 App::gi()->db->update($modelName::$table, (array) $this->_data);
 
                 return App::gi()->db->count;
@@ -78,6 +78,25 @@ abstract class ModelTable extends Model
         $model->__attributes = $item;
 
         return $model;
+    }
+
+    public static function findAllByAttribute($data = [])
+    {
+        //111
+        $modelName = get_called_class();
+        foreach($data as $key=>$value){
+            App::gi()->db->where($key, $value);
+        }
+        $items = App::gi()->db->get($modelName::$table);
+
+        $results = [];
+        foreach ($items as $item) {
+            $model = new $modelName();
+            $model->__attributes = $item;
+            $results[] = $model;
+        }
+
+        return $results;
     }
 
     public static function error()
